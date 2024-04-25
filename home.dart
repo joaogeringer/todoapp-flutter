@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-
 import '../constants/colors.dart';
 import '../widgets/todo_item.dart';
 
+
 class Home extends StatelessWidget {
-  const Home({Key? Key}) : super(key: key);
+  const Home(Key? key) : super (key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +19,7 @@ class Home extends StatelessWidget {
         child: Column(
           children: [
             searchBox()
-            Expanded(
+          Expanded(
               child: ListView(
                 children: [
                   Container(
@@ -49,11 +49,12 @@ class Home extends StatelessWidget {
               child: TextField(
                 decoration: InputDecoration(
                     contentPadding: EdgeInsets.all(0)
-                    prefixIcon: Icon(
+                   {Widget? prefixIcon : Icon(
                       Icons.search,
                       color: tdBlack,
                       size: 20,
-                    ),
+                    );
+                  },
                     prefixIconConstraints: BoxConstraints(
                       maxHeight: 20,
                        minHeight: 25,
@@ -63,7 +64,7 @@ class Home extends StatelessWidget {
                     hintStyle: TextStyle(color: tdGrey),
                   )
                 ),
-              ),
+              );
   }
 
   AppBar _buildAppBar() {
