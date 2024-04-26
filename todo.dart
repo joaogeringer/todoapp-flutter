@@ -9,7 +9,11 @@ class ToDo {
     this.isDone = false
   });
 
-  static List<ToDo> todoList() {
+removeWhere() {
+  
+}
+
+  static List<ToDo> todosList() {
     return [
       ToDo(id: '01', todoText: 'Go to the gym', isDone: true),
       ToDo(id: '02', todoText: 'Buy groceries', isDone: true),
