@@ -1,16 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
 import '../constants/colors.dart';
 import '../model/todo.dart';
 import '../widgets/todo_item.dart';
 
 
-class Home extends StatelessWidget {
+class Home extends StatefulWidget {
  Home(Key? key) : super (key: key);
 
   @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
   Widget build(BuildContext context) {
 
-    final todosList = ToDo.todoList();
+    final todosList = ToDo.todosList();
 
     return Scaffold(
       backgroundColor: tdBGColor,
@@ -24,7 +30,7 @@ class Home extends StatelessWidget {
             ),
             child: Column(
               children: [
-                searchBox()
+                searchBox(),
               Expanded(
                   child: ListView(
                     children: [
@@ -37,7 +43,11 @@ class Home extends StatelessWidget {
                       ),
 
                       for ( ToDo todoo in todosList  )
-                      ToDoItem(todo: todoo,),           
+                      ToDoItem(
+                      todo: todoo,
+                      onToDoChanged: _handleToDoChange,
+                      onDeleteItem: _deleteToDoItem,
+                      ),
                     ],
                   ),
                 ),
@@ -59,7 +69,7 @@ class Home extends StatelessWidget {
                       color: Colors.white,
                       boxShadow: [BoxShadow(
                       color: Colors.grey, 
-                      offset: Offset(0.0 , 0.0,)
+                      offset: Offset(0.0 , 0.0,),
                       blurRadius: 10.0,
                       spreadRadius: 0.0,
                         ),
@@ -73,7 +83,7 @@ class Home extends StatelessWidget {
                       ),
                     ),
                   ),
-                )
+                ),
                 Container(
                   margin: EdgeInsets.only(
                     bottom: 20,
@@ -97,6 +107,18 @@ class Home extends StatelessWidget {
     );
   }
 
+  void _handleToDoChange(ToDo) {
+     setState(() {
+       ToDo.isDone = !ToDo.isDone;
+     });
+  }
+
+  void _deleteToDoItem(String id) {
+    setState(() {
+      todosList.removeWhere((item) => item.id == id);
+    });
+  }
+
   Widget searchBox() {
     return Container(
               padding: EdgeInsets.symmetric(horizontal: 15, vertical: 5),
@@ -106,7 +128,7 @@ class Home extends StatelessWidget {
               ),
               child: TextField(
                 decoration: InputDecoration(
-                    contentPadding: EdgeInsets.all(0)
+                    contentPadding: EdgeInsets.all(0);
                    {Widget? prefixIcon : Icon(
                       Icons.search,
                       color: tdBlack,
